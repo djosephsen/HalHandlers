@@ -1,18 +1,14 @@
 package bothandlers
 
 import (
-	"fmt"
 	"github.com/djosephsen/hal"
-	"math/rand"
-	"time"
-	"strings"
 )
 
 var Secondtest = &hal.Chore{
 	Name:  `Second Test`,
 	Schedule: `* * * * * *`,
+	Room: `C02JM295Z`,
 	Run: func(res *hal.Response) error {
-
-		return res.Reply(reply)
+		return res.Reply(`successful test!`)
 	},
 }
