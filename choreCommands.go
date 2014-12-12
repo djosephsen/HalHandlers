@@ -7,6 +7,17 @@ import (
 	"strings"
 )
 
+var ListRooms = &hal.Handler{
+	Method:  hal.RESPOND,
+	Pattern: `(what room)|(list *room)|(room *list)`,
+	Run: func(res *hal.Response) error {
+		room := res.Message.Room
+		reply := fmt.Sprintf("Current room is: %s",room)
+		return res.Send(reply)
+	},
+}
+
+
 var ListChores = &hal.Handler{
 	Method:  hal.RESPOND,
 	Pattern: `(list chores)|(chore list)`,
@@ -21,16 +32,6 @@ var ListChores = &hal.Handler{
 			}
 		}
 		return res.Reply(reply)
-	},
-}
-
-var ListRooms = &hal.Handler{
-	Method:  hal.RESPOND,
-	Pattern: `(what room)|(list *room)|(room *list)`,
-	Run: func(res *hal.Response) error {
-		room := res.Message.Room
-		reply := fmt.Sprintf("Current room is: %s",room)
-		return res.Send(reply)
 	},
 }
 
