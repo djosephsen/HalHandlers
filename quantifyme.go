@@ -1,4 +1,4 @@
-package bothandlers
+package hal-handlers
 
 import (
 	"fmt"
