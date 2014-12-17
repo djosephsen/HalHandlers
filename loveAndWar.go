@@ -1,4 +1,4 @@
-package hal-handlers
+package HalHandlers
 
 import (
 	"fmt"
