@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"github.com/djosephsen/hal"
 	"time"
-	"strings"
 )
 
 var ListRooms = &hal.Handler{
@@ -37,15 +36,16 @@ var ListChores = &hal.Handler{
 
 var ManageChores = &hal.Handler{
 	Method:  hal.RESPOND,
-	Pattern: `(start|stop) chore .*`,
+	Pattern: `(start|stop) chore (.*)`,
 	Run: func(res *hal.Response) error {
 		var reply string
-		cname:=strings.SplitAfterN(res.Match[0],` `,4)
-		c:=hal.GetChoreByName(cname[3],res.Robot)
+		act:=res.Match[1]
+		cname:=res.Match[2]
+		c:=hal.GetChoreByName(cname,res.Robot)
 		if c == nil{ 
 			reply = fmt.Sprintf("Chore not found: %s",(cname[3]))
 		}else{
-			if cname[1]==`stop `{
+			if act==`stop `{
 				hal.KillChore(c)
 			}else{
 				hal.StartChore(c)

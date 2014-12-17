@@ -5,15 +5,13 @@ import (
 	"github.com/djosephsen/hal"
 	"math/rand"
 	"time"
-	"strings"
 )
 
 var Quantifyme = &hal.Handler{
 	Method:  hal.RESPOND,
-	Pattern: `quantify \S+`,
+	Pattern: `quantify (\S+)`,
 	Run: func(res *hal.Response) error {
-		matchwords:=strings.Split(res.Match[0],` `)
-		user:=matchwords[2]
+		user:=res.Match[1]
 		if user==`me`{ user=`you` }
 		now:=time.Now()
 		rand.Seed(int64(now.Unix()))
